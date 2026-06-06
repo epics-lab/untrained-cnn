@@ -11,6 +11,8 @@ language:
 - en
 ---
 
+[![GitHub](https://img.shields.io/badge/GitHub-untrained--cnn-black?logo=github)](https://github.com/epics-lab/untrained-cnn)
+
 # untrained-cnn
 
 This repository provides an implementation of **un-CNN**, an untrained 3D convolutional neural network used as a fixed feature extractor for structural brain MRI.
@@ -108,12 +110,6 @@ Random-weight CNN features are extracted from structural MRI scans and evaluated
 - sex classification,
 - age regression,
 - BMI regression.
-
-## Hugging Face mirror
-
-The repository is also available on Hugging Face:
-
-<https://huggingface.co/epics-lab/untrained-cnn>
 
 ## Citation
 
