@@ -1,3 +1,5 @@
+[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Untrained%20CNN-yellow)](https://huggingface.co/epics-lab/untrained-cnn)
+
 # untrained-cnn
 
 This repository provides an implementation of **un-CNN**, an untrained 3D convolutional neural network used as a fixed feature extractor for structural brain MRI.
@@ -42,6 +44,24 @@ model = uncnn.load_model(seed=0)          # raw frozen model, if you want it dir
 `config="robust"` is the best overall age configuration; `config="ranksobel"` (clip 2/98) is the best sex-accuracy configuration.
 
 By default the device is chosen automatically — CUDA if a GPU is available, otherwise CPU. Both work; CPU runs fine for small batches, and you can force either with `device="cpu"` or `device="cuda"`.
+
+## Input preprocessing
+
+Inputs should be T1-weighted MRI scans preprocessed with [TurboPrep](https://github.com/LemuelPuglisi/turboprep) and registered to MNI152 space.
+
+Run TurboPrep on each scan:
+
+```bash
+turboprep $T1_FILE $OUTPUT_DIR $T1_TEMPLATE -m t1 -r r
+```
+
+- `$T1_FILE` — path to a T1 MRI scan in `.nii.gz` format.
+- `$OUTPUT_DIR` — output directory. TurboPrep writes `normalized.nii.gz` (the preprocessed scan) and `mask.nii.gz` (the brain mask). The output filenames are always the same, so give each input its own directory.
+- `$T1_TEMPLATE` — path to the MNI152 ICBM non-linear symmetric 2009c template ([download](https://nist.mni.mcgill.ca/icbm-152-nonlinear-atlases-2009/)), e.g. `mni_icbm152_nlin_sym_09c/mni_icbm152_t1_tal_nlin_sym_09c.nii`.
+- `-m t1` — use the T1 modality for intensity normalization.
+- `-r r` — use rigid registration to the template instead of the default affine.
+
+Pass the resulting `normalized.nii.gz` files to `uncnn.extract_features`.
 
 ## Repository structure
 
