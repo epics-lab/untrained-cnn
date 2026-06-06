@@ -1,4 +1,15 @@
-[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Untrained%20CNN-yellow)](https://huggingface.co/epics-lab/untrained-cnn)
+---
+license: mit
+tags:
+- neuroimaging
+- structural-mri
+- mri
+- untrained-cnn
+- random-weights
+- feature-extraction
+language:
+- en
+---
 
 # untrained-cnn
 
