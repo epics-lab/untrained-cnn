@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uncnn"
+version = "0.1.0"
+description = "An untrained (frozen, random-weight) 3D CNN feature extractor for structural brain MRI."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "epics-lab" }]
+keywords = ["mri", "neuroimaging", "untrained-cnn", "feature-extraction", "brain"]
+dependencies = [
+    "numpy",
+    "scipy",
+    "nibabel",
+    "torch",
+]
+
+[project.urls]
+Homepage = "https://github.com/epics-lab/untrained-cnn"
+Repository = "https://github.com/epics-lab/untrained-cnn"
+
+# Single-file module: ship uncnn.py (not a package folder)
+[tool.setuptools]
+py-modules = ["uncnn"]
