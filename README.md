@@ -1,3 +1,16 @@
+---
+license: mit
+tags:
+- neuroimaging
+- structural-mri
+- mri
+- untrained-cnn
+- random-weights
+- feature-extraction
+language:
+- en
+---
+
 [![Untrained CNN models available](https://img.shields.io/badge/🤗%20Hugging%20Face-Untrained%20CNN%20models-yellow)](https://huggingface.co/epics-lab/untrained-cnn)
 
 # untrained-cnn
