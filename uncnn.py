@@ -1,22 +1,8 @@
 """uncnn — an untrained (frozen, random-weight) 3D CNN feature extractor.
 
-Quick start
------------
-    import uncnn
-
-    # one image
-    feats = uncnn.extract_features("subject01.nii.gz")     # -> (1, dim) array
-
-    # many images
-    import glob
-    feats = uncnn.extract_features(glob.glob("data/*.nii.gz"))  # -> (N, dim)
-
-Each input is any NIfTI volume (.nii / .nii.gz); it is resized to the MNI152 2mm
-grid (91x109x91) and turned into a 3-channel image automatically.
-
 Preprocessing configs (pass config=...)
 ----------------------------------------
-    "robust"    : best overall age config            (default)
+    "robust"    : best overall age config (default)
     "ranksobel" : best sex-accuracy config (clip 2/98)
 """
 
@@ -49,10 +35,7 @@ __all__ = [
 # Default fixed random-weight seed for the (untrained) CNN
 WEIGHT_SEED = 0
 
-
-# --------------------------------------------------------------------------- #
 # Preprocessing
-# --------------------------------------------------------------------------- #
 def load_and_resize(path):
     img = nib.load(path).get_fdata().astype(np.float32)
     if img.shape != (91, 109, 91):
@@ -139,17 +122,12 @@ class DS_3ch_RankSobel(Dataset):
         edges = norm(sobel_mag(img))
         return torch.from_numpy(np.stack([img, ranked, edges], axis=0)).float()
 
-
-# Map a friendly config name to its preprocessing Dataset
 _CONFIGS = {
     "robust": DS_3ch_RobustScaler,
     "ranksobel": DS_3ch_RankSobel,
 }
 
-
-# --------------------------------------------------------------------------- #
 # Model
-# --------------------------------------------------------------------------- #
 class DepthwiseSepConv3d(nn.Module):
     def __init__(self, in_ch, out_ch, kernel_size=3, padding=1):
         super().__init__()
@@ -161,17 +139,6 @@ class DepthwiseSepConv3d(nn.Module):
 
 
 class UnCNN(nn.Module):
-    """Untrained 3D CNN feature extractor: DoubleConv backbone + covariance
-    pooling readout. Weights are fixed random (seeded) and never trained.
-
-    Parameters
-    ----------
-    in_channels : int
-        Number of input channels (3 for the standard preprocessing configs).
-    seed : int or None
-        RNG seed applied before weight init for reproducible random weights.
-        Pass None to skip seeding (use the ambient RNG state).
-    """
     def __init__(self, in_channels=3, seed=WEIGHT_SEED):
         super().__init__()
         if seed is not None:
@@ -204,7 +171,6 @@ class UnCNN(nn.Module):
         self.avg_pool = nn.AdaptiveAvgPool3d(2)
 
     def _cov_pool(self, x, max_ch=32):
-        """Mean features + upper triangle of covariance matrix."""
         b, c = x.size(0), min(x.size(1), max_ch)
         mean_feats = self.avg_pool(x).view(b, -1)
         xc = x[:, :c]
@@ -232,9 +198,7 @@ class UnCNN(nn.Module):
         ], dim=1)
 
 
-# --------------------------------------------------------------------------- #
 # Convenience API
-# --------------------------------------------------------------------------- #
 def _resolve_device(device):
     if device is not None:
         return device
@@ -251,28 +215,6 @@ def load_model(seed=WEIGHT_SEED, device=None):
 
 def extract_features(paths, config="robust", batch_size=8, num_workers=0,
                      device=None, seed=WEIGHT_SEED, model=None):
-    """Run the frozen UnCNN on one or more NIfTI volumes and return features.
-
-    Parameters
-    ----------
-    paths : str or list of str
-        A single .nii/.nii.gz path, or a list of them.
-    config : {"robust", "ranksobel"}
-        Preprocessing pipeline. "robust" = best overall age config (default);
-        "ranksobel" = best sex-accuracy config (clip 2/98).
-    batch_size, num_workers : int
-        DataLoader settings.
-    device : str or None
-        "cpu" / "cuda". Auto-detected if None.
-    seed : int or None
-        Random-weight seed (ignored if `model` is provided).
-    model : UnCNN or None
-        Reuse a prebuilt model instead of constructing one.
-
-    Returns
-    -------
-    numpy.ndarray of shape (n_subjects, feature_dim)
-    """
     if isinstance(paths, (str, os.PathLike)):
         paths = [paths]
     if config not in _CONFIGS:

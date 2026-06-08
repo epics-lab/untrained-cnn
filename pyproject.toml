@@ -22,6 +22,5 @@ dependencies = [
 Homepage = "https://github.com/epics-lab/untrained-cnn"
 Repository = "https://github.com/epics-lab/untrained-cnn"
 
-# Single-file module: ship uncnn.py (not a package folder)
 [tool.setuptools]
 py-modules = ["uncnn"]
