@@ -1,4 +1,5 @@
 [![Untrained CNN models available](https://img.shields.io/badge/🤗%20Hugging%20Face-Untrained%20CNN%20models-yellow)](https://huggingface.co/epics-lab/untrained-cnn)
+[![bioRxiv](https://img.shields.io/badge/bioRxiv-Preprint-orange)](https://www.biorxiv.org/content/10.64898/2026.06.07.730652v1)
 
 # untrained-cnn
 
