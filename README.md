@@ -101,7 +101,19 @@ Random-weight CNN features are extracted from structural MRI scans and evaluated
 
 ## Citation
 
-If you use this repository, please cite the associated project/preprint when available.
+If you use this repository, please cite the associated preprint:
+
+```bibtex
+@article{encin2026untrained,
+  title={Untrained Convolutional Neural Networks as Feature Extractors for Structural MRI},
+  author={Encin, Arel and Gonzalez Pepe, Ines and Chatelain, Yohan and Dickie, Erin and Glatard, Tristan},
+  journal={bioRxiv},
+  pages={2026.06.07.730652},
+  year={2026},
+  publisher={Cold Spring Harbor Laboratory},
+  doi={10.64898/2026.06.07.730652}
+}
+```
 
 ## License
 
