@@ -2,8 +2,8 @@
 
 Preprocessing configs (pass config=...)
 ----------------------------------------
-    "robust"    : best overall age config (default)
-    "ranksobel" : best sex-accuracy config (clip 2/98)
+    "robust"    : the model of the paper (default)
+    "ranksobel" : clip 2/98 and min max scaling instead of robust scaling
 """
 
 import os
@@ -92,8 +92,7 @@ def scale_robust(img, clip_low=2, clip_high=98, eps=1e-8):
 
 
 class DS_3ch_RobustScaler(Dataset):
-    """3ch: robust-scaled original + rank filter + Sobel magnitude.
-    Best overall age config."""
+    """3ch: robust-scaled original + rank filter + Sobel magnitude. The model of the paper."""
     def __init__(self, paths):
         self.paths = paths
 
@@ -108,8 +107,7 @@ class DS_3ch_RobustScaler(Dataset):
 
 
 class DS_3ch_RankSobel(Dataset):
-    """3ch: original (clip 2/98) + rank filter + Sobel magnitude.
-    Best sex-accuracy config."""
+    """3ch: original (clip 2/98) + rank filter + Sobel magnitude."""
     def __init__(self, paths):
         self.paths = paths
 

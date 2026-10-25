@@ -5,7 +5,7 @@
 
 This repository provides an implementation of **un-CNN**, an untrained 3D convolutional neural network used as a fixed feature extractor for structural brain MRI.
 
-The model is **never trained**. Its weights are initialized once with a fixed random seed and kept frozen. Brain MRI volumes are passed through the untrained CNN to obtain subject-level feature vectors, which are then evaluated using downstream machine-learning models such as Random Forests.
+The model is **never trained**. Its weights are initialized once with a fixed random seed and kept frozen. Brain MRI volumes are passed through the untrained CNN to obtain subject-level feature vectors for any downstream model. In the paper, the features are evaluated with linear heads: ridge regression for age and BMI, logistic regression for sex.
 
 ## Installation
 
@@ -28,7 +28,7 @@ import glob
 feats = uncnn.extract_features(glob.glob("data/*.nii.gz"))  # -> shape (N, 9664)
 ```
 
-Inputs are any NIfTI volume (`.nii` / `.nii.gz`); each is resized to the MNI152 2mm grid (91x109x91) and converted to a 3-channel image automatically. The output is a NumPy array with one feature row per subject — feed it to whatever downstream model you like (e.g. a Random Forest).
+Inputs are any NIfTI volume (`.nii` / `.nii.gz`); each is resized to the MNI152 2mm grid (91x109x91) and converted to a 3-channel image automatically. The output is a NumPy array with one feature row per subject — feed it to whatever downstream model you like (e.g. ridge regression).
 
 ### Options
 
@@ -42,25 +42,25 @@ uncnn.extract_features(paths,
 model = uncnn.load_model(seed=0)          # raw frozen model, if you want it directly
 ```
 
-`config="robust"` is the best overall age configuration; `config="ranksobel"` (clip 2/98) is the best sex-accuracy configuration.
+`config="robust"` is the model of the paper. `config="ranksobel"` replaces robust scaling with clipping at the 2nd and 98th percentiles and min max scaling, the configuration before the last step of the architecture ablation.
+
+The paper extracts features on CPU with `batch_size=1`; other batch sizes or a GPU change the features only at floating point precision.
 
 By default the device is chosen automatically — CUDA if a GPU is available, otherwise CPU. Both work; CPU runs fine for small batches, and you can force either with `device="cpu"` or `device="cuda"`.
 
 ## Input preprocessing
 
-Inputs should be T1-weighted MRI scans preprocessed with [TurboPrep](https://github.com/LemuelPuglisi/turboprep) and registered to MNI152 space.
-
-Run TurboPrep on each scan:
+Inputs should be T1-weighted MRI scans preprocessed with [TurboPrep](https://github.com/LemuelPuglisi/turboprep) and registered to MNI152 space. For the main benchmark of the paper, each scan was skull stripped with [HD-BET](https://github.com/MIC-DKFZ/HD-BET) and then processed with TurboPrep using its default affine registration:
 
 ```bash
-turboprep $T1_FILE $OUTPUT_DIR $T1_TEMPLATE -m t1 -r r
+turboprep $T1_FILE $OUTPUT_DIR $T1_TEMPLATE -m t1
 ```
 
-- `$T1_FILE` — path to a T1 MRI scan in `.nii.gz` format.
+- `$T1_FILE` — path to a T1 MRI scan in `.nii.gz` format; for the main benchmark, the HD-BET skull stripped scan.
 - `$OUTPUT_DIR` — output directory. TurboPrep writes `normalized.nii.gz` (the preprocessed scan) and `mask.nii.gz` (the brain mask). The output filenames are always the same, so give each input its own directory.
 - `$T1_TEMPLATE` — path to the MNI152 ICBM non-linear symmetric 2009c template ([download](https://nist.mni.mcgill.ca/icbm-152-nonlinear-atlases-2009/)), e.g. `mni_icbm152_nlin_sym_09c/mni_icbm152_t1_tal_nlin_sym_09c.nii`.
 - `-m t1` — use the T1 modality for intensity normalization.
-- `-r r` — use rigid registration to the template instead of the default affine.
+- `-r r`, optional — rigid registration instead of the default affine; the paper uses it only for the architecture ablation.
 
 Pass the resulting `normalized.nii.gz` files to `uncnn.extract_features`.
 
@@ -70,13 +70,13 @@ Pass the resulting `normalized.nii.gz` files to `uncnn.extract_features`.
 | --- | --- |
 | `uncnn.py` | The installable module: final un-CNN architecture, preprocessing, and the `extract_features` API. |
 | `pyproject.toml` | Packaging metadata that makes the repo pip-installable. |
-| `un-CNN.ipynb` | Final un-CNN architecture and preprocessing pipeline used for the main results. Start here if you want to read the final model. |
-| `Untrained CNN Project.ipynb` | Development notebook containing architecture optimization and ablation experiments. |
+| `un-CNN.ipynb` | Walkthrough of the model: input channels, encoder, readout and seeded weights. Start here if you want to read the final model. |
+| `experiments/` | Notebooks reproducing the experiments of the paper, see [`experiments/README.md`](experiments/README.md). |
 | `LICENSE` | MIT license. |
 
 ## Final un-CNN architecture
 
-The final model is provided in `uncnn.py` (and mirrored in `un-CNN.ipynb`, which isolates the final architecture and preprocessing pipeline from the optimization steps).
+The final model is provided in `uncnn.py`, and `un-CNN.ipynb` walks through it step by step.
 
 The final un-CNN uses:
 
@@ -91,13 +91,13 @@ No CNN training, fine-tuning, or backpropagation is performed. Each scan yields 
 
 ## Architecture optimization
 
-The development notebook `Untrained CNN Project.ipynb` contains the optimization steps used to evaluate different untrained 3D CNN design choices for brain MRI feature extraction.
+`experiments/05_architecture_ablation.ipynb` reproduces the cumulative ablation from the default CNN of Zunair et al. to the final un-CNN, one design choice per step.
 
-Random-weight CNN features are extracted from structural MRI scans and evaluated using identical downstream Random Forest models for prediction tasks such as:
+The architecture was optimized on NKI only, with rigidly registered inputs and identical downstream Random Forest models, for sex classification and age regression. HBN, PPMI and BMI regression were held out. The main benchmark of the paper then uses affine registration and linear heads.
 
-- sex classification,
-- age regression,
-- BMI regression.
+## Reproducing the paper
+
+`experiments/` has one notebook per experiment of the paper: the main benchmark, the encoder and linear head timing of Table I, and the architecture ablation. [`experiments/README.md`](experiments/README.md) describes the data, the checkpoints of the foundation models and how to run each notebook on a SLURM cluster.
 
 ## Citation
 
