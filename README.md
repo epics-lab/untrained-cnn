@@ -73,7 +73,7 @@ Pass the resulting `normalized.nii.gz` files to `uncnn.extract_features`.
 | `uncnn.py` | The installable module: final un-CNN architecture, preprocessing, and the `extract_features` API. |
 | `pyproject.toml` | Packaging metadata that makes the repo pip-installable. |
 | `un-CNN.ipynb` | Walkthrough of the model: input channels, encoder, readout and seeded weights. Start here if you want to read the final model. |
-| `experiments/` | Notebooks reproducing the experiments of the paper, see [`experiments/README.md`](experiments/README.md). |
+| `experiments/` | Notebooks reproducing the experiments of the paper, see [`experiments/README.md`](https://github.com/epics-lab/untrained-cnn/blob/main/experiments/README.md). |
 | `LICENSE` | MIT license. |
 
 ## Final un-CNN architecture
@@ -99,7 +99,7 @@ The architecture was optimized on NKI only, with rigidly registered inputs and i
 
 ## Reproducing the paper
 
-`experiments/` has one notebook per experiment of the paper: the main benchmark, the encoder and linear head timing of Table I, and the architecture ablation. [`experiments/README.md`](experiments/README.md) describes the data, the checkpoints of the foundation models and how to run each notebook on a SLURM cluster.
+`experiments/` has one notebook per experiment of the paper: the main benchmark, the encoder and linear head timing of Table I, and the architecture ablation. [`experiments/README.md`](https://github.com/epics-lab/untrained-cnn/blob/main/experiments/README.md) describes the data, the checkpoints of the foundation models and how to run each notebook on a SLURM cluster.
 
 ## Citation
 
