@@ -1,5 +1,7 @@
-[![Untrained CNN models available](https://img.shields.io/badge/🤗%20Hugging%20Face-Untrained%20CNN%20models-yellow)](https://huggingface.co/epics-lab/untrained-cnn)
-[![bioRxiv](https://img.shields.io/badge/bioRxiv-2026.06.07.730652-b31b1b.svg)](https://www.biorxiv.org/content/10.64898/2026.06.07.730652v1)
+[![Models](https://img.shields.io/badge/Hugging%20Face-un--CNN-FFD21E?style=flat-square&logo=huggingface&logoColor=black)](https://huggingface.co/epics-lab/untrained-cnn)
+[![Paper](https://img.shields.io/badge/bioRxiv-2026.06.07.730652-B31B1B?style=flat-square)](https://www.biorxiv.org/content/10.64898/2026.06.07.730652v1)
+[![License](https://img.shields.io/badge/License-MIT-0A7BBB?style=flat-square)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=flat-square&logo=python&logoColor=white)](pyproject.toml)
 
 # untrained-cnn
 
