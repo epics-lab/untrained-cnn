@@ -49,7 +49,7 @@ Model inputs per subject:
 | AnatCL | [carloalbertobarbano/AnatCL](https://github.com/carloalbertobarbano/AnatCL), installed by `requirements.txt`; the five fold checkpoints of each descriptor | `ANATCL_WEIGHTS_DIR`, with `weights_{global,local}_fold{0..4}.pth` |
 | BrainIAC | [AIM-KannLab/BrainIAC](https://github.com/AIM-KannLab/BrainIAC) | `BRAINIAC_CKPT` |
 | 3D-Neuro-SimCLR | [emilykaczmarek/3D-Neuro-SimCLR](https://github.com/emilykaczmarek/3D-Neuro-SimCLR) | `SIMCLR_CKPT` |
-| SwinBrain | release of the SwinBrain authors | `SWINBRAIN_CKPT` |
+| SwinBrain | [MAI-Lab-West-China-Hospital/SwinBrain](https://github.com/MAI-Lab-West-China-Hospital/SwinBrain) | `SWINBRAIN_CKPT` |
 
 The un-CNN needs no checkpoint. No checkpoint is redistributed here.
 
