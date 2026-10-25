@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper below."
+title: "un-CNN: an untrained 3D CNN feature extractor for structural brain MRI"
+type: software
+version: 1.0.0
+date-released: 2026-10-25
+license: MIT
+repository-code: "https://github.com/epics-lab/untrained-cnn"
+authors:
+  - family-names: Encin
+    given-names: Arel
+  - family-names: Gonzalez Pepe
+    given-names: Ines
+  - family-names: Chatelain
+    given-names: Yohan
+  - family-names: Dickie
+    given-names: Erin
+  - family-names: Glatard
+    given-names: Tristan
+keywords:
+  - untrained convolutional neural network
+  - structural MRI
+  - feature extraction
+  - neuroimaging
+preferred-citation:
+  type: article
+  title: "Untrained Convolutional Neural Networks as Feature Extractors for Structural MRI"
+  authors:
+    - family-names: Encin
+      given-names: Arel
+    - family-names: Gonzalez Pepe
+      given-names: Ines
+    - family-names: Chatelain
+      given-names: Yohan
+    - family-names: Dickie
+      given-names: Erin
+    - family-names: Glatard
+      given-names: Tristan
+  journal: bioRxiv
+  year: 2026
+  doi: 10.64898/2026.06.07.730652

@@ -1,7 +1,8 @@
 [![Models](https://img.shields.io/badge/Hugging%20Face-un--CNN-FFD21E?style=flat-square&logo=huggingface&logoColor=black)](https://huggingface.co/epics-lab/untrained-cnn)
 [![Paper](https://img.shields.io/badge/bioRxiv-2026.06.07.730652-B31B1B?style=flat-square)](https://www.biorxiv.org/content/10.64898/2026.06.07.730652v1)
-[![License](https://img.shields.io/badge/License-MIT-0A7BBB?style=flat-square)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=flat-square&logo=python&logoColor=white)](pyproject.toml)
+[![License](https://img.shields.io/badge/License-MIT-0A7BBB?style=flat-square)](https://github.com/epics-lab/untrained-cnn/blob/main/LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://github.com/epics-lab/untrained-cnn/blob/main/pyproject.toml)
+[![PyPI](https://img.shields.io/pypi/v/uncnn?style=flat-square&logo=pypi&logoColor=white&color=3775A9)](https://pypi.org/project/uncnn/)
 
 # untrained-cnn
 
@@ -12,7 +13,7 @@ The model is **never trained**. Its weights are initialized once with a fixed ra
 ## Installation
 
 ```bash
-pip install git+https://github.com/epics-lab/untrained-cnn.git
+pip install uncnn
 ```
 
 This installs the `uncnn` module along with its dependencies (numpy, scipy, nibabel, torch). No cloning required.
