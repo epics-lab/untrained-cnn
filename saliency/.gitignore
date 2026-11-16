@@ -1,0 +1,67 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Local cluster/account config -- copy the .example versions and edit
+slurm/env.sh
+config/paths.env
+
+# FreeSurfer license -- personal/account-specific (see
+# docs/mni152_template_registration.md). The real copy lives at
+# ~/.licenses/freesurfer.lic, outside this repo entirely, specifically so
+# there's no in-repo path to accidentally commit -- these patterns are
+# defense in depth in case a copy ever ends up inside the repo anyway.
+*.lic
+license.txt
+freesurfer.lic
+
+# SLURM job logs (regenerated per run)
+slurm/logs/*.out
+!slurm/logs/.gitkeep
+
+# Regenerable runtime artifacts: feature caches (large, cohort-identifiable)
+# and any trained checkpoints you haven't hand-curated into checkpoints/heads/
+artifacts/
+
+# Saliency pipeline outputs -- per-subject NIfTI maps, JSON, aggregate/bin
+# maps, correlation CSVs, figures. Large (multi-GB) and tied to real subject
+# IDs/ages -- regenerate via the slurm/ scripts, don't commit.
+saliency_outputs/
+
+# Population-mean IG reference/baseline images -- regenerate via
+# slurm/compute_reference_baselines.sh, derived from real subject data.
+reference_baselines/
+
+# External pretrained backbone checkpoints -- not vendored, see
+# config/paths.example.env / README for where to obtain them.
+*.ckpt
+*.pth
+*.tar
+
+# Trained linear-head checkpoints -- large/regenerable via
+# slurm/train_all_models.sh, no longer pushed to GitHub. The directory
+# itself must still exist locally (scripts write into it); .gitkeep keeps
+# the empty dir present in a fresh clone.
+checkpoints/heads/*
+!checkpoints/heads/.gitkeep
+
+# MNI152Lin segmentation templates for fs_roi -- large generated NIfTI
+# volumes plus a templateflow download cache, both regenerable via
+# templates/build_mni152_dkt_templates.sh (see
+# docs/mni152_template_registration.md), no longer pushed to GitHub. The
+# build script itself stays tracked; only its outputs/cache are ignored.
+templates/*.nii.gz
+templates/*.mgz
+templates/_work/
+templates/.templateflow_cache/
+
+# Large generated trees and archives that can sit next to the code on a cluster
+saliency_affine*/
+saliency_rigid*/
+*.tar.gz
+tpl-*.nii.gz
+
+# OS/editor cruft
+.DS_Store
+*.swp

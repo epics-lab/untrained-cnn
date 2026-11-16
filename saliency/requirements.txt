@@ -1,0 +1,20 @@
+# Core
+numpy
+scipy
+pandas
+scikit-learn
+
+# Deep learning + 3D backbones (BrainIAC ViT, SwinBrain SwinUNETR, SimCLR resnet18)
+torch
+monai
+
+# Neuroimaging I/O + resampling
+nibabel
+nilearn
+
+# AnatCL backbone -- not on PyPI, clone separately and point ANATCL_REPO_ROOT
+# at it (see config/paths.example.env): https://github.com/EIDOSLAB/AnatCL
+
+# Plotting
+matplotlib
+plotly
