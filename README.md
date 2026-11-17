@@ -51,6 +51,10 @@ The paper extracts features on CPU with `batch_size=1`; other batch sizes or a G
 
 By default the device is chosen automatically — CUDA if a GPU is available, otherwise CPU. Both work; CPU runs fine for small batches, and you can force either with `device="cpu"` or `device="cuda"`.
 
+## Saliency maps and sanity checks
+
+[`saliency/`](saliency/) contains the pipeline that computes saliency maps for the un-CNN and for pretrained foundation-model backbones, and runs the sanity checks of Adebayo et al. (2018). See [`saliency/README.md`](saliency/README.md).
+
 ## Input preprocessing
 
 Inputs should be T1-weighted MRI scans preprocessed with [TurboPrep](https://github.com/LemuelPuglisi/turboprep) and registered to MNI152 space. For the main benchmark of the paper, each scan was skull stripped with [HD-BET](https://github.com/MIC-DKFZ/HD-BET) and then processed with TurboPrep using its default affine registration:

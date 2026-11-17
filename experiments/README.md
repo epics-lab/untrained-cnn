@@ -10,7 +10,7 @@ One notebook per experiment. Each notebook states the method as in the paper, ru
 | Table I: Params., Dim., Input prep., Feat. ext., Total | [`03_encoder_timing.ipynb`](03_encoder_timing.ipynb) | `slurm/encoder_timing.sh`: 2 CPUs, one thread |
 | Table I: Head fit | [`04_head_timing.ipynb`](04_head_timing.ipynb) | `slurm/head_timing.sh`, after the NKI run of 01 |
 | Table II, Figure 3: architecture ablation | [`05_architecture_ablation.ipynb`](05_architecture_ablation.ipynb) | `slurm/architecture_ablation.sh`: 16 CPUs |
-| Integrated gradients | [InesGP/untrained-CNN-saliency](https://github.com/InesGP/untrained-CNN-saliency) | |
+| Saliency maps and sanity checks (integrated gradients) | [`../saliency/`](../saliency/) | see [`../saliency/README.md`](../saliency/README.md) |
 
 Shared code: `cohorts.py` builds the subjects, labels and inputs of each dataset, `encoders.py` the frozen feature extractors, `heads.py` the linear head, `config.py` reads the paths and `machine.py` records the hardware of a timing run.
 
