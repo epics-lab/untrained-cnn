@@ -10,13 +10,7 @@ This repository provides an implementation of **un-CNN**, an untrained 3D convol
 
 The model is **never trained**. Its weights are initialized once with a fixed random seed and kept frozen. Brain MRI volumes are passed through the untrained CNN to obtain subject-level feature vectors for any downstream model. In the paper, the features are evaluated with linear heads: ridge regression for age and BMI, logistic regression for sex.
 
-un-CNN, with no training at all, achieved top spots on [BrainFMBench](https://www.epics-lab.ca/BrainFMBench/), against 9 pretrained brain MRI foundation models and 2 FreeSurfer baselines:
-
-- 🏆 **#1 overall with the random forest probe**, #2 with the linear probe
-- 🥇 1st on 6 of 13 tasks with the random forest probe
-- 🥈 Top 3 on 12 of 13 tasks with the random forest probe
-
-_As of November 2026. [Live results](https://www.epics-lab.ca/BrainFMBench/docs/models/uncnn/)._
+un-CNN is also evaluated on [BrainFMBench](https://www.epics-lab.ca/BrainFMBench/), an open benchmark of frozen structural brain MRI models maintained by our lab, under the same public protocol as 9 pretrained foundation models and 2 FreeSurfer baselines. See its [current results](https://www.epics-lab.ca/BrainFMBench/docs/models/uncnn/).
 
 ## Installation
 
